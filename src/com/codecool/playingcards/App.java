@@ -16,14 +16,6 @@ public class App {
         System.out.println("Deck has been reset. Card count: " + frenchDeck.getCardCount()); //52
     }
 
-    private static Deck generateFrenchDeck() {
-        int[] numbers = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-        String[] symbols = {"Jack", "Queen", "King", "Ace"};
-        String[] suits = {"Clubs", "Spades", "Hearts", "Diamonds"};
-
-        return generateDeck(numbers, symbols, suits);
-    }
-
     private static Deck generateGermanDeck() {
         int[] numbers = {7, 8, 9, 10};
         String[] symbols = {"Unter", "Ober", "King", "Ace"};
