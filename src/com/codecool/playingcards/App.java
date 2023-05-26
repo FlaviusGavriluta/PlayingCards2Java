@@ -24,6 +24,14 @@ public class App {
         return generateDeck(numbers, symbols, suits);
     }
 
+    private static Deck generateGermanDeck() {
+        int[] numbers = {7, 8, 9, 10};
+        String[] symbols = {"Unter", "Ober", "King", "Ace"};
+        String[] suits = {"Acorns", "Leaves", "Hearts", "Bells"};
+
+        return generateDeck(numbers, symbols, suits);
+    }
+
     private static Deck generateDeck(int[] numbers, String[] symbols, String[] suits) {
         ArrayList<Card> cards = new ArrayList<>();
 
