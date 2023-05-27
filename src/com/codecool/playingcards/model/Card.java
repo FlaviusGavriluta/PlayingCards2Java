@@ -11,7 +11,19 @@ public class Card {
     public Card(String symbol, String suit) {
         this.symbol = symbol;
         this.suit = suit;
-        this.title = this.symbol + " of " + this.suit;
+        this.title = this.symbol + " of " + suit;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override
@@ -19,7 +31,7 @@ public class Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return Objects.equals(symbol, card.symbol) && suit.equals(card.suit) && Objects.equals(title, card.title);
+        return suit.equals(card.suit) && symbol.equals(card.symbol);
     }
 
     @Override
