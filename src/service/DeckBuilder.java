@@ -1,6 +1,6 @@
-package com.codecool.playingcards.service;
+package service;
 
-import com.codecool.playingcards.model.Deck;
+import model.Deck;
 
 public interface DeckBuilder {
     Deck createDeck();

@@ -1,6 +1,6 @@
-package com.codecool.playingcards.service.impl;
+package service.impl;
 
-import com.codecool.playingcards.service.Logger;
+import service.Logger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
