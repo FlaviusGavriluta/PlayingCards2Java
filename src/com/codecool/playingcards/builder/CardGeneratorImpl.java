@@ -14,7 +14,11 @@ public class CardGeneratorImpl implements CardGenerator {
         this.logger = logger;
     }
 
-    public List<Card> generate(int[] numbers, String[] symbols, String[] suits) {
+    public List<Card> generate(DeckDescriptor deckDescriptor) {
+        int[] numbers = deckDescriptor.numbers();
+        String[] symbols = deckDescriptor.symbols();
+        String[] suits = deckDescriptor.suits();
+
         return generateCards(numbers, symbols, suits);
     }
 
