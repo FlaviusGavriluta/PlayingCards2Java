@@ -6,6 +6,7 @@ import com.codecool.playingcards.model.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CardGeneratorImpl implements CardGenerator {
     private final Logger logger;
@@ -26,27 +27,25 @@ public class CardGeneratorImpl implements CardGenerator {
         List<Card> cards = new ArrayList<>();
 
         for (String suit : suits) {
-            addNumberedCards(cards, suit, numbers);
-            addCourtCards(cards, suit, symbols);
+            addCards(cards, symbols, suit);
+            addCards(cards, numbers, suit);
         }
         return cards;
     }
 
-    private void addNumberedCards(List<Card> cards, String suit, int[] numbers) {
-        for (int number : numbers) {
-            Card card = new Card(Integer.toString(number), suit);
-            logger.logInfo(String.format("Generate card %s", card));
-            cards.add(card);
-
-        }
-    }
-
-    private void addCourtCards(List<Card> cards, String suit, String[] symbols) {
-        for (String symbol : symbols) {
-            Card card = new Card(symbol, suit);
+    private void addCards(List<Card> cards, int[] values, String suit) {
+        for (int value : values) {
+            Card card = new Card(Integer.toString(value), suit);
             logger.logInfo(String.format("Generate card %s", card));
             cards.add(card);
         }
     }
 
+    private void addCards(List<Card> cards, String[] values, String suit) {
+        for (String value : values) {
+            Card card = new Card(value, suit);
+            logger.logInfo(String.format("Generate card %s", card));
+            cards.add(card);
+        }
+    }
 }
