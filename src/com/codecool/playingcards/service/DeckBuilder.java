@@ -1,4 +1,4 @@
-package com.codecool.playingcards.interfaces;
+package com.codecool.playingcards.service;
 
 import com.codecool.playingcards.model.Deck;
 

@@ -1,12 +1,12 @@
-package com.codecool.playingcards.builder;
+package com.codecool.playingcards.service.impl;
 
-import com.codecool.playingcards.interfaces.CardGenerator;
-import com.codecool.playingcards.interfaces.Logger;
+import com.codecool.playingcards.model.DeckDescriptor;
+import com.codecool.playingcards.service.CardGenerator;
+import com.codecool.playingcards.service.Logger;
 import com.codecool.playingcards.model.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CardGeneratorImpl implements CardGenerator {
     private final Logger logger;

@@ -1,4 +1,6 @@
-package com.codecool.playingcards.builder;
+package com.codecool.playingcards.utility;
+
+import com.codecool.playingcards.model.DeckDescriptor;
 
 public final class DeckDescriptors {
     private static final int[] FRENCH_NUMBERS = {2, 3, 4, 5, 6, 7, 8, 9, 10};

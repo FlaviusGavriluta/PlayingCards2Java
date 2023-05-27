@@ -1,8 +1,8 @@
-package com.codecool.playingcards.logger;
+package com.codecool.playingcards.service.impl;
 
 import java.time.LocalDateTime;
 
-import com.codecool.playingcards.interfaces.Logger;
+import com.codecool.playingcards.service.Logger;
 
 public class ConsoleLogger implements Logger {
     @Override

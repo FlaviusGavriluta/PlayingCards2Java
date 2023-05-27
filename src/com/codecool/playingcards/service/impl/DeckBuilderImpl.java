@@ -1,7 +1,8 @@
-package com.codecool.playingcards.builder;
+package com.codecool.playingcards.service.impl;
 
-import com.codecool.playingcards.interfaces.CardGenerator;
-import com.codecool.playingcards.interfaces.DeckBuilder;
+import com.codecool.playingcards.model.DeckDescriptor;
+import com.codecool.playingcards.service.CardGenerator;
+import com.codecool.playingcards.service.DeckBuilder;
 import com.codecool.playingcards.model.Deck;
 import com.codecool.playingcards.model.Card;
 

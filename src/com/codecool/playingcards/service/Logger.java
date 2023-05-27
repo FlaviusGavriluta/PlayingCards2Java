@@ -1,4 +1,4 @@
-package com.codecool.playingcards.interfaces;
+package com.codecool.playingcards.service;
 
 public interface Logger {
     public void logInfo(String message);
