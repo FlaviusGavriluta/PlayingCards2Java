@@ -1,38 +1,51 @@
 package com.codecool.playingcards.model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class Deck {
-    private static final Random Random = new Random();
+    private static final Random RANDOM = new Random();
 
-    private final ArrayList<Card> cards;
-    private final ArrayList<Card> drawn;
+    private final List<Card> cards;
+    private final List<Card> drawn;
 
     public int getCardCount() {
         return cards.size();
     }
 
-    public Deck(ArrayList<Card> cards) {
+    public Deck(List<Card> cards) {
         this.cards = cards;
         this.drawn = new ArrayList<>();
     }
 
-    public Card drawOne() {
-        Card card = cards.get(Random.nextInt(0, cards.size() - 1));
-        HandleDraw(card);
-        return card;
+    public Optional<Card> drawOne() {
+        if (cards.isEmpty()) {
+            return Optional.empty();
+        }
+        Card card = cards.get(RANDOM.nextInt(0, cards.size()));
+        handleDraw(card);
+        return Optional.of(card);
     }
 
-    private void HandleDraw(Card card) {
+    private void handleDraw(Card card) {
         cards.remove(card);
         drawn.add(card);
     }
 
     public void reset() {
-        ArrayList<Card> current = new ArrayList<>(cards);
+        List<Card> current = new ArrayList<>(cards);
         cards.clear();
-        cards.addAll(Stream.concat(current.stream(), drawn.stream()).toList());
+        cards.addAll(current);
+        cards.addAll(drawn);
+    }
+
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "cards=" + cards +
+                ", drawn=" + drawn +
+                '}';
     }
 }
