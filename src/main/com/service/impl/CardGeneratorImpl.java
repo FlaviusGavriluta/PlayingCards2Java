@@ -1,9 +1,9 @@
-package com.codecool.playingcards.service.impl;
+package com.service.impl;
 
-import com.codecool.playingcards.model.DeckDescriptor;
-import com.codecool.playingcards.service.CardGenerator;
-import com.codecool.playingcards.service.Logger;
-import com.codecool.playingcards.model.Card;
+import com.model.DeckDescriptor;
+import com.service.CardGenerator;
+import com.service.Logger;
+import com.model.Card;
 
 import java.util.ArrayList;
 import java.util.List;

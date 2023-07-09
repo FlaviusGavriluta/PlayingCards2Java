@@ -1,4 +1,4 @@
-package com.codecool.playingcards.service;
+package com.service;
 
 public interface Logger {
     public void logInfo(String message);

@@ -1,13 +1,13 @@
-package com.codecool.playingcards.presentation;
+package com.presentation;
 
-import com.codecool.playingcards.service.impl.CardGeneratorImpl;
-import com.codecool.playingcards.utility.DeckDescriptors;
-import com.codecool.playingcards.service.CardGenerator;
-import com.codecool.playingcards.service.DeckBuilder;
-import com.codecool.playingcards.service.impl.DeckBuilderImpl;
-import com.codecool.playingcards.service.Logger;
-import com.codecool.playingcards.service.impl.ConsoleLogger;
-import com.codecool.playingcards.model.Deck;
+import com.service.impl.CardGeneratorImpl;
+import com.utility.DeckDescriptors;
+import com.service.CardGenerator;
+import com.service.DeckBuilder;
+import com.service.impl.DeckBuilderImpl;
+import com.service.Logger;
+import com.service.impl.ConsoleLogger;
+import com.model.Deck;
 
 import java.util.ArrayList;
 import java.util.List;

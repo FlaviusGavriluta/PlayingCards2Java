@@ -1,4 +1,4 @@
-package com.codecool.playingcards.model;
+package com.model;
 
 public record Card(String symbol, String suit) {
     public String title() {
