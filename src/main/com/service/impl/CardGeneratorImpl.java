@@ -6,6 +6,7 @@ import com.service.Logger;
 import com.model.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CardGeneratorImpl implements CardGenerator {
@@ -15,37 +16,41 @@ public class CardGeneratorImpl implements CardGenerator {
         this.logger = logger;
     }
 
-    public List<Card> generate(DeckDescriptor deckDescriptor) {
-        int[] numbers = deckDescriptor.numbers();
-        String[] symbols = deckDescriptor.symbols();
-        String[] suits = deckDescriptor.suits();
-
-        return generateCards(numbers, symbols, suits);
-    }
-
-    private List<Card> generateCards(int[] numbers, String[] symbols, String[] suits) {
-        List<Card> cards = new ArrayList<>();
-
-        for (String suit : suits) {
-            addCards(cards, symbols, suit);
-            addCards(cards, numbers, suit);
+    public List<Card> generate(DeckDescriptor descriptor) {
+        if (descriptor == null) {
+            return Collections.emptyList();
         }
-        return cards;
-    }
 
-    private void addCards(List<Card> cards, int[] values, String suit) {
-        for (int value : values) {
-            Card card = new Card(Integer.toString(value), suit);
-            logger.logInfo(String.format("Generate card %s", card));
-            cards.add(card);
+        List<Card> generatedCards = new ArrayList<>();
+        int[] numbers = descriptor.getNumbers();
+        String[] suits = descriptor.getSuits();
+
+        for (int number : numbers) {
+            for (String suit : suits) {
+                Card card = new Card(numberToString(number), suit);
+                generatedCards.add(card);
+            }
         }
+
+        return generatedCards;
     }
 
-    private void addCards(List<Card> cards, String[] values, String suit) {
-        for (String value : values) {
-            Card card = new Card(value, suit);
-            logger.logInfo(String.format("Generate card %s", card));
-            cards.add(card);
+    private String numberToString(int number) {
+        if (number >= 2 && number <= 10) {
+            return Integer.toString(number);
+        } else {
+            switch (number) {
+                case 1:
+                    return "Ace";
+                case 11:
+                    return "Jack";
+                case 12:
+                    return "Queen";
+                case 13:
+                    return "King";
+                default:
+                    throw new IllegalArgumentException("Invalid card number: " + number);
+            }
         }
     }
 }
