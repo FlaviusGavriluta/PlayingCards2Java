@@ -1,6 +1,6 @@
 package com.model;
 
-public record Card(String symbol, String suit) {
+public record Card(String number, String symbol, String suit) {
     public String title() {
         return String.format("%s of %s", symbol, suit);
     }

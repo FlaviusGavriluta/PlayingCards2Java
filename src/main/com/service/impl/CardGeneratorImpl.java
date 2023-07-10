@@ -20,37 +20,41 @@ public class CardGeneratorImpl implements CardGenerator {
         if (descriptor == null) {
             return Collections.emptyList();
         }
-
         List<Card> generatedCards = new ArrayList<>();
         int[] numbers = descriptor.getNumbers();
+        String[] symbols = descriptor.getSymbols();
         String[] suits = descriptor.getSuits();
 
         for (int number : numbers) {
-            for (String suit : suits) {
-                Card card = new Card(numberToString(number), suit);
-                generatedCards.add(card);
+            for (String symbol : symbols) {
+                for (String suit : suits) {
+                    Card card = new Card(String.valueOf(number), symbol, suit);
+                    System.out.println(card.toString());
+                    generatedCards.add(card);
+                }
             }
         }
 
         return generatedCards;
     }
 
+
     private String numberToString(int number) {
         if (number >= 2 && number <= 10) {
             return Integer.toString(number);
-        } else {
+        } else if (number >= 11 && number <= 13) {
             switch (number) {
-                case 1:
-                    return "Ace";
                 case 11:
-                    return "Jack";
+                    return "J";
                 case 12:
-                    return "Queen";
+                    return "Q";
                 case 13:
-                    return "King";
-                default:
-                    throw new IllegalArgumentException("Invalid card number: " + number);
+                    return "K";
             }
+        } else if (number == 1) {
+            return "Ace";
         }
+
+        throw new IllegalArgumentException("Invalid card number: " + number);
     }
 }
