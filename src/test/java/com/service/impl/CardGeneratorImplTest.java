@@ -16,9 +16,9 @@ public class CardGeneratorImplTest {
         // Arrange
         Logger logger = new ConsoleLogger();
         CardGeneratorImpl cardGenerator = new CardGeneratorImpl(logger);
-        int[] numbers = { 2, 3, 4 };
-        String[] symbols = { "J", "Q", "K" };
-        String[] suits = { "Hearts", "Diamonds" };
+        int[] numbers = {2, 3, 4};
+        String[] symbols = {"J", "Q", "K"};
+        String[] suits = {"Hearts", "Diamonds"};
 
         DeckDescriptor deckDescriptor = new DeckDescriptor(numbers, symbols, suits);
         int expectedCardCount = (deckDescriptor.numbers().length + deckDescriptor.symbols().length) * deckDescriptor.suits().length;

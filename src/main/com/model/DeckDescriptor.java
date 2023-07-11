@@ -15,4 +15,13 @@ public record DeckDescriptor(int[] numbers, String[] symbols, String[] suits) {
     public String[] getSymbols() {
         return symbols;
     }
+
+    @Override
+    public String toString() {
+        return "DeckDescriptor{" +
+                "numbers=" + Arrays.toString(numbers) +
+                ", symbols=" + Arrays.toString(symbols) +
+                ", suits=" + Arrays.toString(suits) +
+                '}';
+    }
 }

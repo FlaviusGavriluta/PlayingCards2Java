@@ -20,18 +20,25 @@ public class CardGeneratorImpl implements CardGenerator {
         if (descriptor == null) {
             return Collections.emptyList();
         }
+
         List<Card> generatedCards = new ArrayList<>();
         int[] numbers = descriptor.getNumbers();
         String[] symbols = descriptor.getSymbols();
         String[] suits = descriptor.getSuits();
 
         for (int number : numbers) {
-            for (String symbol : symbols) {
-                for (String suit : suits) {
-                    Card card = new Card(String.valueOf(number), symbol, suit);
-                    System.out.println(card.toString());
-                    generatedCards.add(card);
-                }
+            for (String suit : suits) {
+                Card card = new Card(String.valueOf(number), suit);
+                System.out.println(card);
+                generatedCards.add(card);
+            }
+        }
+
+        for (String symbol : symbols) {
+            for (String suit : suits) {
+                Card card = new Card(symbol, suit);
+                System.out.println(card);
+                generatedCards.add(card);
             }
         }
 
