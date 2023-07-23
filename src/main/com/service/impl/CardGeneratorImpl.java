@@ -45,7 +45,6 @@ public class CardGeneratorImpl implements CardGenerator {
         return generatedCards;
     }
 
-
     private String numberToString(int number) {
         if (number >= 2 && number <= 10) {
             return Integer.toString(number);
