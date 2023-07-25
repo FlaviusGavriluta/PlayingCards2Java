@@ -62,12 +62,19 @@ public class CardGeneratorImplTest {
     @Test
     void testLoggerInfoMethod() {
         // Act
-        cardGenerator.someMethodThatLogsInfo("This is an info message");
-        // Verificăm că metoda info() a fost apelată cu argumentul corect
+        cardGenerator.generateCards();
+        // Verificăm că metoda logInfo() a fost apelată cu argumentul corect
         Mockito.verify(loggerMock).logInfo(infoCaptor.capture());
-        assertEquals("This is an info message", infoCaptor.getValue());
+        assertEquals("Generating cards...", infoCaptor.getValue());
     }
-
+    @Test
+    void testLoggerErrorMethod() {
+        // Act
+        cardGenerator.someMethodThatLogsError("This is an error message");
+        // Verificăm că metoda logError() a fost apelată cu argumentul corect
+        Mockito.verify(loggerMock).logError(infoCaptor.capture());
+        assertEquals("This is an error message", infoCaptor.getValue());
+    }
 
     @Test
     void generateCardsReturnsExpectedNumberOfCards() {
