@@ -10,7 +10,6 @@ import java.util.List;
 
 public class DeckBuilderImpl implements DeckBuilder {
     private final CardGenerator cardGenerator;
-
     private final DeckDescriptor deckDescriptor;
 
     public DeckBuilderImpl(CardGenerator cardGenerator, DeckDescriptor deckDescriptor) {
