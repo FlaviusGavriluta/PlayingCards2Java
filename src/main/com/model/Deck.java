@@ -6,27 +6,27 @@ import java.util.Optional;
 import java.util.Random;
 
 public class Deck {
-    private static final Random RANDOM = new Random();
-
     private final List<Card> cards;
     private final List<Card> drawn;
+    private Random random;
+
+    public Deck(List<Card> cards) {
+        this.cards = new ArrayList<>(cards);
+        this.drawn = new ArrayList<>();
+        this.random = new Random();
+    }
 
     public int getCardCount() {
         return cards.size();
-    }
-
-    public Deck(List<Card> cards) {
-        this.cards = cards;
-        this.drawn = new ArrayList<>();
     }
 
     public Optional<Card> drawOne() {
         if (cards.isEmpty()) {
             return Optional.empty();
         }
-        Card card = cards.get(RANDOM.nextInt(0, cards.size()));
-        handleDraw(card);
-        return Optional.of(card);
+        int index = random.nextInt(cards.size());
+        Card drawnCard = cards.remove(index);
+        return Optional.of(drawnCard);
     }
 
     private void handleDraw(Card card) {
