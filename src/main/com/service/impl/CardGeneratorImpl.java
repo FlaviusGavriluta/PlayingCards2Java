@@ -63,4 +63,9 @@ public class CardGeneratorImpl implements CardGenerator {
 
         throw new IllegalArgumentException("Invalid card number: " + number);
     }
+
+    // Metoda care inregistreaza un mesaj de informare:
+    public void someMethodThatLogsInfo(String thisIsAnInfoMessage) {
+        logger.logInfo(thisIsAnInfoMessage);
+    }
 }
