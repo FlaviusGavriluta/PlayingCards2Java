@@ -2,10 +2,8 @@ package com.service.impl;
 
 import com.model.Card;
 import com.model.DeckDescriptor;
-import com.service.CardGenerator;
 import com.service.Logger;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -82,7 +80,6 @@ public class CardGeneratorImplTest {
         // We check that the logInfo() method was called with the correct argument
         Mockito.verify(loggerMock).logInfo(infoCaptor.capture());
         assertEquals(message, infoCaptor.getValue()); // We check that the message is the one we expect
-        infoCaptor = ArgumentCaptor.forClass(String.class);
     }
 
     static Stream<Arguments> provideTestDataForInfoMethod() {
