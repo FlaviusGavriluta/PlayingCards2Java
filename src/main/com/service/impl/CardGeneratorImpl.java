@@ -65,8 +65,8 @@ public class CardGeneratorImpl implements CardGenerator {
     }
 
     // Metoda care generează cărțile și înregistrează un mesaj de informare
-    public List<Card> generateCards() {
-        logger.logInfo("Generating cards...");
+    public List<Card> generateCards(String message) {
+        logger.logInfo(message);
         // Logică de generare a cărților
         return new ArrayList<>();
     }

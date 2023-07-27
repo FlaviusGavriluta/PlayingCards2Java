@@ -21,9 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 public class CardGeneratorImplTest {
-    private final Logger logger = new ConsoleLogger();
-    private final CardGenerator cardGenerator = new CardGeneratorImpl(logger);
-    private CardGeneratorImpl cardGeneratorMock;
+    private CardGeneratorImpl cardGenerator;
     private Logger loggerMock;
     private ArgumentCaptor<String> infoCaptor;
     private int[] numbers;
@@ -32,14 +30,13 @@ public class CardGeneratorImplTest {
 
     @BeforeEach
     void setUp() {
-        cardGeneratorMock = new CardGeneratorImpl(logger);
         numbers = new int[]{2, 3, 4};
         symbols = new String[]{"J", "Q", "K"};
         suits = new String[]{"Hearts", "Diamonds"};
         loggerMock = mock(Logger.class); // We create the mock object and store it in a class variable
-        infoCaptor = ArgumentCaptor.forClass(String.class); // We create the captor for the info() method
+        infoCaptor = ArgumentCaptor.forClass(String.class); // We create the ArgumentCaptor object
         // Aceasta este instanta reala a CardGeneratorImpl
-        cardGeneratorMock = new CardGeneratorImpl(loggerMock); // We create the object we want to test
+        cardGenerator = new CardGeneratorImpl(loggerMock); // We create the object we want to test
     }
 
     @ParameterizedTest
@@ -47,15 +44,14 @@ public class CardGeneratorImplTest {
     void generateCardsReturnsExpectedNumberOfCards(DeckDescriptor deckDescriptor, int expectedCardCount) {
         // Act
         List<Card> cards = cardGenerator.generate(deckDescriptor);
-
         // Assert
         assertEquals(expectedCardCount, cards.size());
     }
 
     static Stream<Arguments> provideDeckDescriptors() {
         return Stream.of(
-                Arguments.of(new DeckDescriptor(new int[] { 2, 3, 4 }, new String[] { "J", "Q", "K" }, new String[] { "Hearts", "Diamonds" }), 12),
-                Arguments.of(new DeckDescriptor(new int[] { 1, 2 }, new String[] { "A", "B" }, new String[] { "Clubs", "Spades" }), 8)
+                Arguments.of(new DeckDescriptor(new int[]{2, 3, 4}, new String[]{"J", "Q", "K"}, new String[]{"Hearts", "Diamonds"}), 12),
+                Arguments.of(new DeckDescriptor(new int[]{1, 2}, new String[]{"A", "B"}, new String[]{"Clubs", "Spades"}), 8)
         );
     }
 
@@ -78,38 +74,35 @@ public class CardGeneratorImplTest {
         return expectedCards;
     }
 
-    @Test
-    void testLoggerInfoMethod() {
+    @ParameterizedTest
+    @MethodSource("provideTestDataForInfoMethod")
+    void testLoggerInfoMethod(String message) {
         // Act
-        cardGeneratorMock.generateCards();
-        // Verificăm că metoda logInfo() a fost apelată cu argumentul corect
+        cardGenerator.generateCards(message);
+        // We check that the logInfo() method was called with the correct argument
         Mockito.verify(loggerMock).logInfo(infoCaptor.capture());
-        assertEquals("Generating cards...", infoCaptor.getValue());
+        assertEquals(message, infoCaptor.getValue()); // We check that the message is the one we expect
+        infoCaptor = ArgumentCaptor.forClass(String.class);
     }
 
-    @Test
+    static Stream<Arguments> provideTestDataForInfoMethod() {
+        return Stream.of(
+                Arguments.of("Generating cards..."),
+                Arguments.of("This is an info message"),
+                Arguments.of("This is another info message")
+        );
+    }
+
+    @ParameterizedTest
     void testLoggerErrorMethod() {
         // Act
-        cardGeneratorMock.someMethodThatLogsError("This is an error message");
+        cardGenerator.someMethodThatLogsError("This is an error message");
         // Verificăm că metoda logError() a fost apelată cu argumentul corect
         Mockito.verify(loggerMock).logError(infoCaptor.capture());
         assertEquals("This is an error message", infoCaptor.getValue());
     }
 
-    @Test
-    void generateCardsReturnsExpectedNumberOfCards() {
-        // Arrange
-        DeckDescriptor deckDescriptor = createDeckDescriptor();
-        int expectedCardCount = (deckDescriptor.numbers().length + deckDescriptor.symbols().length) * deckDescriptor.suits().length;
-
-        // Act
-        List<Card> cards = cardGenerator.generate(deckDescriptor);
-
-        // Assert
-        assertEquals(expectedCardCount, cards.size());
-    }
-
-    @Test
+    @ParameterizedTest
     void generateCardsGeneratesExpectedCards() {
         // Arrange
         DeckDescriptor deckDescriptor = createDeckDescriptor();
@@ -123,7 +116,7 @@ public class CardGeneratorImplTest {
         assertTrue(expectedCards.containsAll(cards) && cards.containsAll(expectedCards));
     }
 
-    @Test
+    @ParameterizedTest
     void generateCardsDeckDescriptorIsNullReturnsEmptyList() {
         // Act
         List<Card> cards = cardGenerator.generate(null);
