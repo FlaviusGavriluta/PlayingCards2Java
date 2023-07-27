@@ -2,34 +2,38 @@ package com.service.impl;
 
 import com.model.Card;
 import com.model.DeckDescriptor;
+import com.service.CardGenerator;
 import com.service.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class CardGeneratorImplTest {
-    private Logger logger;
+    private final Logger logger = new ConsoleLogger();
+    private final CardGenerator cardGenerator = new CardGeneratorImpl(logger);
+    private CardGeneratorImpl cardGeneratorMock;
     private Logger loggerMock;
     private ArgumentCaptor<String> infoCaptor;
     private ArgumentCaptor<String> errorCaptor;
-    private CardGeneratorImpl cardGenerator;
     private int[] numbers;
     private String[] symbols;
     private String[] suits;
 
     @BeforeEach
     void setUp() {
-        logger = new ConsoleLogger();
-        cardGenerator = new CardGeneratorImpl(logger);
+        cardGeneratorMock = new CardGeneratorImpl(logger);
         numbers = new int[]{2, 3, 4};
         symbols = new String[]{"J", "Q", "K"};
         suits = new String[]{"Hearts", "Diamonds"};
@@ -37,7 +41,24 @@ public class CardGeneratorImplTest {
         infoCaptor = ArgumentCaptor.forClass(String.class); // We create the captor for the info() method
         errorCaptor = ArgumentCaptor.forClass(String.class); // We create the captor for the error() method
         // Aceasta este instanta reala a CardGeneratorImpl
-        cardGenerator = new CardGeneratorImpl(loggerMock); // We create the object we want to test
+        cardGeneratorMock = new CardGeneratorImpl(loggerMock); // We create the object we want to test
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideDeckDescriptors")
+    void generateCardsReturnsExpectedNumberOfCards(DeckDescriptor deckDescriptor, int expectedCardCount) {
+        // Act
+        List<Card> cards = cardGenerator.generate(deckDescriptor);
+
+        // Assert
+        assertEquals(expectedCardCount, cards.size());
+    }
+
+    static Stream<Arguments> provideDeckDescriptors() {
+        return Stream.of(
+                Arguments.of(new DeckDescriptor(new int[] { 2, 3, 4 }, new String[] { "J", "Q", "K" }, new String[] { "Hearts", "Diamonds" }), 12),
+                Arguments.of(new DeckDescriptor(new int[] { 1, 2 }, new String[] { "A", "B" }, new String[] { "Clubs", "Spades" }), 8)
+        );
     }
 
     private DeckDescriptor createDeckDescriptor() {
@@ -62,15 +83,16 @@ public class CardGeneratorImplTest {
     @Test
     void testLoggerInfoMethod() {
         // Act
-        cardGenerator.generateCards();
+        cardGeneratorMock.generateCards();
         // Verificăm că metoda logInfo() a fost apelată cu argumentul corect
         Mockito.verify(loggerMock).logInfo(infoCaptor.capture());
         assertEquals("Generating cards...", infoCaptor.getValue());
     }
+
     @Test
     void testLoggerErrorMethod() {
         // Act
-        cardGenerator.someMethodThatLogsError("This is an error message");
+        cardGeneratorMock.someMethodThatLogsError("This is an error message");
         // Verificăm că metoda logError() a fost apelată cu argumentul corect
         Mockito.verify(loggerMock).logError(infoCaptor.capture());
         assertEquals("This is an error message", infoCaptor.getValue());
