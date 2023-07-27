@@ -26,7 +26,6 @@ public class CardGeneratorImplTest {
     private CardGeneratorImpl cardGeneratorMock;
     private Logger loggerMock;
     private ArgumentCaptor<String> infoCaptor;
-    private ArgumentCaptor<String> errorCaptor;
     private int[] numbers;
     private String[] symbols;
     private String[] suits;
@@ -39,7 +38,6 @@ public class CardGeneratorImplTest {
         suits = new String[]{"Hearts", "Diamonds"};
         loggerMock = mock(Logger.class); // We create the mock object and store it in a class variable
         infoCaptor = ArgumentCaptor.forClass(String.class); // We create the captor for the info() method
-        errorCaptor = ArgumentCaptor.forClass(String.class); // We create the captor for the error() method
         // Aceasta este instanta reala a CardGeneratorImpl
         cardGeneratorMock = new CardGeneratorImpl(loggerMock); // We create the object we want to test
     }
