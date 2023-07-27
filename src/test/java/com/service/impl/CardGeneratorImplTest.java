@@ -91,12 +91,20 @@ public class CardGeneratorImplTest {
     }
 
     @ParameterizedTest
-    void testLoggerErrorMethod() {
+    @MethodSource("provideTestDataForErrorMethod")
+    void testLoggerErrorMethod(String errorMessage) {
         // Act
-        cardGenerator.someMethodThatLogsError("This is an error message");
+        cardGenerator.someMethodThatLogsError(errorMessage);
         // Verificăm că metoda logError() a fost apelată cu argumentul corect
         Mockito.verify(loggerMock).logError(infoCaptor.capture());
-        assertEquals("This is an error message", infoCaptor.getValue());
+        assertEquals(errorMessage, infoCaptor.getValue());
+    }
+
+    static Stream<Arguments> provideTestDataForErrorMethod() {
+        return Stream.of(
+                Arguments.of("This is an error message"),
+                Arguments.of("This is another error message")
+        );
     }
 
     @ParameterizedTest
