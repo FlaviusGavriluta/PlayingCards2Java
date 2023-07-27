@@ -4,10 +4,14 @@ import com.model.Card;
 import com.model.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,19 +25,19 @@ public class DeckTest {
         deckWithCards = new Deck(List.of(new Card("3", "Spades"), new Card("7", "Hearts")));
     }
 
-    @Test
-    void testDrawOneWhenDeckIsEmpty() {
+    @ParameterizedTest
+    @MethodSource("provideDecks")
+    void testDrawOne(Deck deck, boolean expectCardPresent) {
         // Act
-        Optional<Card> card = emptyDeck.drawOne();
+        Optional<Card> card = deck.drawOne();
         // Verificăm că rezultatul este Optional.empty() când pachetul este gol
-        assertTrue(card.isEmpty());
+        assertEquals(expectCardPresent, card.isPresent());
     }
 
-    @Test
-    void testDrawOneWhenDeckIsNotEmpty() {
-        // Act
-        Optional<Card> card = deckWithCards.drawOne();
-        // Verificăm că rezultatul este Optional<Card> (adică că s-a extras o carte) când pachetul are cărți
-        assertTrue(card.isPresent());
+    private static Stream<Arguments> provideDecks() {
+        return Stream.of(
+                Arguments.of(new Deck(new ArrayList<>()), false),
+                Arguments.of(new Deck(List.of(new Card("3", "Spades"), new Card("7", "Hearts"))), true)
+        );
     }
 }
