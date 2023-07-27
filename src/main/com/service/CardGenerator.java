@@ -1,7 +1,7 @@
 package com.service;
 
-import com.model.DeckDescriptor;
 import com.model.Card;
+import com.model.DeckDescriptor;
 
 import java.util.List;
 

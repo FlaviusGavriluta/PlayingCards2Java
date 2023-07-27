@@ -29,18 +29,6 @@ public class Deck {
         return Optional.of(drawnCard);
     }
 
-    private void handleDraw(Card card) {
-        cards.remove(card);
-        drawn.add(card);
-    }
-
-    public void reset() {
-        List<Card> current = new ArrayList<>(cards);
-        cards.clear();
-        cards.addAll(current);
-        cards.addAll(drawn);
-    }
-
     @Override
     public String toString() {
         return "Deck{" +

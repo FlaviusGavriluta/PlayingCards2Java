@@ -1,9 +1,9 @@
 package com.service.impl;
 
+import com.model.Card;
 import com.model.DeckDescriptor;
 import com.service.CardGenerator;
 import com.service.Logger;
-import com.model.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,31 +45,13 @@ public class CardGeneratorImpl implements CardGenerator {
         return generatedCards;
     }
 
-    private String numberToString(int number) {
-        if (number >= 2 && number <= 10) {
-            return Integer.toString(number);
-        } else if (number >= 11 && number <= 13) {
-            switch (number) {
-                case 11:
-                    return "J";
-                case 12:
-                    return "Q";
-                case 13:
-                    return "K";
-            }
-        } else if (number == 1) {
-            return "Ace";
-        }
-
-        throw new IllegalArgumentException("Invalid card number: " + number);
-    }
-
     // Metoda care generează cărțile și înregistrează un mesaj de informare
     public List<Card> generateCards(String message) {
         logger.logInfo(message);
         // Logică de generare a cărților
         return new ArrayList<>();
     }
+
     // Metoda care înregistrează un mesaj de eroare
     public void someMethodThatLogsError(String errorMessage) {
         logger.logError(errorMessage);

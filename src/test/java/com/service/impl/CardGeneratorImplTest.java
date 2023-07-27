@@ -3,6 +3,7 @@ package com.service.impl;
 import com.model.Card;
 import com.model.DeckDescriptor;
 import com.service.Logger;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -51,25 +52,6 @@ public class CardGeneratorImplTest {
                 Arguments.of(new DeckDescriptor(new int[]{2, 3, 4}, new String[]{"J", "Q", "K"}, new String[]{"Hearts", "Diamonds"}), 12),
                 Arguments.of(new DeckDescriptor(new int[]{1, 2}, new String[]{"A", "B"}, new String[]{"Clubs", "Spades"}), 8)
         );
-    }
-
-    private DeckDescriptor createDeckDescriptor() {
-        return new DeckDescriptor(numbers, symbols, suits);
-    }
-
-    private List<Card> expectedCards() {
-        List<Card> expectedCards = new ArrayList<>();
-        for (int number : numbers) {
-            for (String suit : suits) {
-                expectedCards.add(new Card(String.valueOf(number), suit));
-            }
-        }
-        for (String symbol : symbols) {
-            for (String suit : suits) {
-                expectedCards.add(new Card(symbol, suit));
-            }
-        }
-        return expectedCards;
     }
 
     @ParameterizedTest
