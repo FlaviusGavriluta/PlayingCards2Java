@@ -140,11 +140,17 @@ public class CardGeneratorImplTest {
     }
 
     @ParameterizedTest
-    void generateCardsDeckDescriptorIsNullReturnsEmptyList() {
+    @MethodSource("provideNullDeckDescriptor")
+    void generateCardsDeckDescriptorIsNullReturnsEmptyList(DeckDescriptor deckDescriptor) {
         // Act
-        List<Card> cards = cardGenerator.generate(null);
-
+        List<Card> cards = cardGenerator.generate(deckDescriptor);
         // Assert
         assertTrue(cards.isEmpty());
+    }
+
+    private static Stream<Arguments> provideNullDeckDescriptor() {
+        return Stream.of(
+                Arguments.of((DeckDescriptor) null)
+        );
     }
 }
