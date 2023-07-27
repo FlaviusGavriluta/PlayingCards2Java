@@ -108,17 +108,35 @@ public class CardGeneratorImplTest {
     }
 
     @ParameterizedTest
-    void generateCardsGeneratesExpectedCards() {
-        // Arrange
-        DeckDescriptor deckDescriptor = createDeckDescriptor();
-        List<Card> expectedCards = expectedCards();
-
+    @MethodSource("provideDeckDescriptorAndExpectedCards")
+    void generateCardsGeneratesExpectedCards(DeckDescriptor deckDescriptor, List<Card> expectedCards) {
         // Act
         List<Card> cards = cardGenerator.generate(deckDescriptor);
-
         // Assert
         assertEquals(expectedCards.size(), cards.size());
         assertTrue(expectedCards.containsAll(cards) && cards.containsAll(expectedCards));
+    }
+
+    private static Stream<Arguments> provideDeckDescriptorAndExpectedCards() {
+        List<Card> expectedCards1 = new ArrayList<>();
+        expectedCards1.add(new Card("2", "Hearts"));
+        expectedCards1.add(new Card("2", "Diamonds"));
+        expectedCards1.add(new Card("3", "Hearts"));
+        expectedCards1.add(new Card("3", "Diamonds"));
+
+        List<Card> expectedCards2 = new ArrayList<>();
+        expectedCards2.add(new Card("J", "Hearts"));
+        expectedCards2.add(new Card("J", "Diamonds"));
+        expectedCards2.add(new Card("Q", "Hearts"));
+        expectedCards2.add(new Card("Q", "Diamonds"));
+
+        DeckDescriptor deckDescriptor1 = new DeckDescriptor(new int[]{2, 3}, new String[]{}, new String[]{"Hearts", "Diamonds"});
+        DeckDescriptor deckDescriptor2 = new DeckDescriptor(new int[]{}, new String[]{"J", "Q"}, new String[]{"Hearts", "Diamonds"});
+
+        return Stream.of(
+                Arguments.of(deckDescriptor1, expectedCards1),
+                Arguments.of(deckDescriptor2, expectedCards2)
+        );
     }
 
     @ParameterizedTest
